@@ -1,0 +1,8 @@
+subnav_title:
+label:
+menu_items:
+  - text:
+    url:
+uuid:
+metadata:
+  type: Vertical Subnav

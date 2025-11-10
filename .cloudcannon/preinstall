@@ -1,0 +1,5 @@
+rm go.sum
+rm go.mod
+
+go mod init ur-admissions
+hugo mod get github.com/cloudcannon/bookshop/hugo/v3

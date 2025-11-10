@@ -1,0 +1,36 @@
+sitewide_components:
+  - title: My Sitewide Component
+    sw_component:
+      _bookshop_name: design-system/section/hero
+      heading: Heading
+      label:
+      subheading:
+      background_image:
+      alt_text:
+      body_text: ''
+      ctas:
+        - text: Call to Action
+          icon:
+          url:
+      postscript_links:
+      settings:
+        styles:
+          audience: general
+          tone: loud
+          color_palette: option-2
+          bg_subtle:
+          enable_blend: false
+          tint_opacity: '0.7'
+        layout:
+          buffer:
+          padding: py-6 py-xxl-7
+          text_placement: mx-auto text-center
+          background_position:
+        config:
+          name: hero
+          edit_mode_only: false
+          include_heading_postscript: false
+      is_dynamic: false
+      is_nested: false
+      use_common_wrapper: true
+    uuid: dadea36a-9395-4007-92ed-acb9b4480bb1

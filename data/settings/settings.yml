@@ -1,0 +1,54 @@
+meta_data:
+  description: Test description for meta.
+  social_media_image:
+  keywords:
+    - Academics
+social_media_accounts:
+alert_banner:
+  is_active: true
+  alert_type: info
+  home_page_only: false
+  markdown: >-
+    Alert message.
+masthead:
+  masthead_lockup:
+    _bookshop_name: design-system/masthead/logo-lockup-standard
+    super_heading: West Virginia University
+    lockup_lines:
+      - My Site Name
+  parent_org:
+  parent_org_url:
+  buttons:
+    button_1:
+      text:
+      url:
+    button_2:
+      text:
+      url:
+    button_3:
+      text:
+      url:
+primary_navigation:
+  hide_primary_nav: false
+  enable_dropdowns: true
+  nav_links:
+    - text: Home
+      link: /
+      sub_nav_links:
+footer:
+  contact_info_blocks:
+  footer_blocks:
+    - _bookshop_name: design-system/footer/sitemap
+    - _bookshop_name: design-system/footer/quicklinks
+      heading: Quicklinks
+      f_quicklink_items:
+    - _bookshop_name: design-system/footer/wvu-resources
+  postscript:
+    label:
+    f_postscript_links:
+extras:
+  custom_css: |-
+    .my-cool-style {
+      color: red;
+    }
+  chatbot_url:

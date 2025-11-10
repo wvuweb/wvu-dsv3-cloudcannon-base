@@ -1,0 +1,26 @@
+{
+  "name": "wvu-dsv3-cloudcannon-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wvuweb/wvu-dsv3-cloudcannon-base"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wvuweb/wvu-dsv3-cloudcannon-base/issues"
+  },
+  "homepage": "https://github.com/wvuweb/wvu-dsv3-cloudcannon-base#readme",
+  "dependencies": {
+    "@bookshop/browser": "3.9.0",
+    "@bookshop/generate": "3.9.0",
+    "@bookshop/hugo-engine": "3.9.0",
+    "front-matter": "^4.0.2"
+  }
+}

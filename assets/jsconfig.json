@@ -1,0 +1,10 @@
+{
+ "compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+   "*": [
+    "../../wvu-ds-v3-hugo/assets/*"
+   ]
+  }
+ }
+}

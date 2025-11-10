@@ -1,0 +1,898 @@
+_schema: _schema
+paths:
+  data: data
+  collections: content
+  includes: layouts
+  layouts: layouts
+  static: assets
+  uploads: assets/uploads
+  source: ''
+  archetypes: archetypes
+  assets: assets
+  content: content
+  pages: content
+  publish: public
+  config: ''
+collections_config:
+  articles:
+    path: content/articles
+    icon: edit
+    output: true
+    parse_branch_index: true
+    description: Articles description
+    _enabled_editors:
+      - visual
+      - data
+    disable_add: false
+    disable_add_folder: true
+    disable_file_actions: false
+    schemas:
+      article:
+        path: .cloudcannon/schemas/article.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        new_preview_url: /live-editor-previews/article/
+      photo_essay:
+        path: .cloudcannon/schemas/photo-essay.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        new_preview_url: /live-editor-previews/photo-essay/
+    _inputs:
+      alternate_url:
+        context:
+          content: Use this if you want to pull this article into an Article Collection or Article Tease component and want to link to an external article. This is NOT an alternate URL for this page within this site.
+      article_image:
+        type: image
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+      article_image_alt_text:
+        label: Alt Text
+        hidden: '!article_image'
+        options:
+          required: true
+      article_role:
+        type: select
+        options:
+          allow_empty: true
+          values: _select_data.article_roles
+        label: Role
+      author:
+        type: select
+        options:
+          allow_empty: true
+          values: data.people_data[?(@.schema == "author")]
+          value_key: uuid
+      show_author_bios:
+        type: switch
+      teaser:
+        type: textarea
+    _select_data:
+      article_roles:
+        - Author
+        - Photographer
+        - Video
+    _structures:
+      authors:
+        style: select
+        values:
+          - value:
+              author:
+              article_role:
+  clubs_and_organizations:
+    path: content/clubs-and-organizations
+    icon: favorite
+    output: true
+    parse_branch_index: true
+    preview:
+      metadata:
+        - text:
+            - key: metadata.type
+    description: Clubs and organizations.
+    _enabled_editors:
+      - data
+      - visual
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      organization:
+        path: .cloudcannon/schemas/organization.md
+        reorder_inputs: false
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/organization/
+    _inputs:
+      contact_title:
+        label: Title
+      lines:
+        type: array
+      lines[*]:
+        type: text
+      location:
+        type: array
+        options:
+          values: _structures.location
+      logo:
+        type: image
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+      org_contacts:
+        type: array
+        options:
+          allow_empty: true
+          structures: _structures.org_contacts
+      org_img_alt_text:
+        hidden: '!organization_image'
+        options:
+          required: true
+      organization_image:
+        type: image
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+      social_media_accounts:
+        options:
+          structures: _structures.social_media_accounts
+    _structures:
+      location:
+        style: select
+        values:
+          - value:
+              name:
+              lines:
+              map_link:
+      org_contacts:
+        style: select
+        values:
+          - value:
+              name:
+              contact_title:
+              phone:
+              email:
+      social_media_accounts:
+        values:
+          - value:
+              platform:
+              icon:
+              url:
+  default_content:
+    path: data/default_content
+    icon: globe
+    output: false
+    description: Default content blocks.
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+  directory:
+    path: content/directory
+    icon: list
+    output: true
+    parse_branch_index: true
+    _enabled_editors:
+      - visual
+      - data
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    schemas:
+      directory:
+        path: .cloudcannon/schemas/directory.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+  navigation_menus:
+    path: data/menus
+    name: Submenus
+    icon: menu
+    output: false
+    description: Navigation menus you can use throughout the site.
+    disable_add: false
+    disable_add_folder: true
+    disable_file_actions: false
+    schemas:
+      horizontal_subnav:
+        path: .cloudcannon/schemas/horizontal-subnav.yml
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{subnav_title|slugify}.yml'
+      vertical_subnav:
+        path: .cloudcannon/schemas/vertical-subnav.yml
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{subnav_title|slugify}.yml'
+    _inputs:
+      horizontal_subnav_color_palette:
+        type: select
+        label: Color
+        options:
+          values: _select_data.brand_colors_site
+          value_key: background_classes
+  pages:
+    path: content
+    glob:
+      - '!directory/index.md'
+    icon: library_books
+    output: true
+    parse_branch_index: true
+    description: Pages description
+    _enabled_editors:
+      - visual
+      - data
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      detail_page:
+        path: .cloudcannon/schemas/detail-page.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        new_preview_url: /live-editor-previews/detail/
+      guide_page:
+        path: .cloudcannon/schemas/guide-page.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        new_preview_url: /live-editor-previews/guide/
+  people:
+    path: content/people
+    icon: group
+    output: false
+    preview:
+      metadata:
+        - text:
+            - key: metadata.type
+    _enabled_editors:
+      - data
+      - visual
+    add_options:
+      - name: Alumni
+        schema: alumni
+      - name: Author
+        schema: author
+      - name: Faculty Member
+        schema: faculty
+      - name: Staff Member
+        schema: staff
+      - name: Student
+        schema: student
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      alumni:
+        path: .cloudcannon/schemas/alumni.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/alumni/
+      author:
+        path: .cloudcannon/schemas/author-profile.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/author/
+      faculty:
+        path: .cloudcannon/schemas/faculty-profile.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/faculty-member/
+      staff:
+        path: .cloudcannon/schemas/staff.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/staff-member/
+      student:
+        path: .cloudcannon/schemas/student-profile.md
+        reorder_inputs: true
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{name|slugify}.md'
+        new_preview_url: /live-editor-previews/student/
+    _inputs:
+      bio_text:
+        type: markdown
+      graduation_years:
+        type: array
+      graduation_years[*]:
+        type: text
+      honors:
+        type: array
+      honors[*]:
+        type: text
+      job_title:
+        type: array
+      job_title[*]:
+        type: text
+      majors:
+        type: array
+      majors[*]:
+        type: text
+      minors:
+        type: array
+      minors[*]:
+        type: text
+      dir_include:
+        type: switch
+        label: Include in Directory
+      image_lg:
+        type: image
+        label: Large Image
+        context:
+          content: This will display to the right of the person’s info in the topper. Overrides the profile image, if assigned. Note, it will not display in your directory or components that display people. It will also be overridden by a background image in the topper if one is assigned.
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+      is_contact:
+        type: auto
+        hidden: true
+      lines:
+        type: array
+      lines[*]:
+        type: text
+      location:
+        type: array
+        options:
+          values: _structures.location
+      name:
+        options:
+          required: true
+      profile_image:
+        type: image
+        context:
+          content: This will show in your directory and components that display people. It will show in the topper unless a large image is assigned.
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+      quote:
+        type: textarea
+      title:
+        options:
+          required: false
+    _structures:
+      location:
+        style: select
+        values:
+          - value:
+              name:
+              lines:
+              map_link:
+  places_and_spaces:
+    path: content/places-and-spaces
+    icon: location_on
+    output: false
+    _enabled_editors:
+      - data
+      - visual
+    add_options:
+      - name: Facility
+        schema: facility
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+    schemas:
+      facility:
+        path: .cloudcannon/schemas/place.md
+        reorder_inputs: false
+        hide_extra_inputs: true
+        remove_empty_inputs: false
+        remove_extra_inputs: false
+        icon: notes
+        create:
+          path: '{title|slugify}.md'
+        new_preview_url: /live-editor-previews/place/
+    _inputs:
+      image_lg:
+        type: image
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1920
+          height: 1080
+  settings:
+    path: data/settings
+    name: Settings
+    icon: settings
+    output: false
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    _inputs:
+      alert_banner:
+        options:
+          preview:
+            text: Shows at the Top of Your Site When Active
+            icon: add_alert
+      alert_type:
+        type: select
+        options:
+          allow_empty: true
+          values: _select_data.alert_type
+          value_key: type
+      buttons:
+        options:
+          preview:
+            icon: buttons_alt
+      custom_css:
+        label: Custom CSS
+        type: code
+        options:
+          max_visible_lines: 25
+          min_visible_lines: 15
+          show_gutter: true
+          syntax: css
+          theme: darcula
+      d_ctas:
+        label: CTAs
+        options:
+          structures: _structures.d_ctas
+          preview:
+            text: CTAs
+      d_embed:
+        type: textarea
+        label: Embed Code
+      d_featurette_items:
+        label: Items
+        options:
+          structures: _structures.d_featurette_items
+      default_content:
+        options:
+          preview:
+            text: Sitewide Components Above Footer
+      extras:
+        options:
+          preview:
+            icon: library_add
+      f_postscript_links:
+        type: array
+        label: Links
+        options:
+          structures: _structures.f_postscript_links
+          max_items: 7
+          preview:
+            icon: link
+      f_quicklink_items:
+        label: Links
+        options:
+          preview:
+            icon: link
+      footer:
+        options:
+          preview:
+            icon: page_footer
+      footer_blocks:
+        type: array
+        options:
+          structures: _structures.footer_blocks
+          max_items: 3
+      hide_primary_nav:
+        type: checkbox
+        cascade: true
+      keywords:
+        type: multiselect
+        options:
+          allow_create: true
+          allow_empty: true
+      masthead:
+        options:
+          preview:
+            icon: toolbar
+      masthead_lockup:
+        type: object
+        label: Logo Lockup
+        options:
+          structures: _structures.masthead_lockups
+          preview:
+            icon: join
+      parent_org:
+        options:
+          preview:
+            icon: subdirectory_arrow_right
+      postscript:
+        options:
+          preview:
+            icon: more_horiz
+      primary_navigation:
+        options:
+          preview:
+            text: Top-Level Links
+            icon: link
+      social_media_accounts:
+        style: select
+        option:
+          values: _structures.social_media_accounts
+      social_media_image:
+        type: image
+        options:
+          allowed_sources:
+            - ccdam
+          width: 1200
+          height: 1080
+          prevent_resize_existing_files: false
+    _select_data:
+      alert_type:
+        - name: Danger
+          type: danger
+        - name: Info
+          type: info
+        - name: Success
+          type: success
+        - name: Warning
+          type: warning
+    _structures:
+      d_ctas:
+        values:
+          - value:
+              text:
+              url:
+      d_featurette_items:
+        values:
+          - value:
+              heading:
+              text:
+              d_ctas:
+      f_postscript_links:
+        values:
+          - value:
+              text:
+              url:
+      social_media_accounts:
+        values:
+          - value:
+              platform:
+              icon:
+              url:
+  sitewide_components:
+    path: data/sitewide_components
+    icon: globe
+    output: false
+    description: Sitewide components
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    _inputs:
+      sitewide_components:
+        type: array
+        options:
+          structures: _structures.sw_components
+      sw_component:
+        label: Component
+        type: object
+        options:
+          structures: _structures.content_blocks
+      uuid:
+        hidden: true
+    _structures:
+      sw_components:
+        values:
+          - value:
+              title:
+              sw_component:
+              uuid:
+collection_groups:
+  - heading: Page Types
+    collections:
+      - pages
+      - articles
+      - directory
+  - heading: Collections
+    collections:
+      - clubs_and_organizations
+      - partners
+      - people
+      - places_and_spaces
+  - heading: Site Config
+    collections:
+      - settings
+      - navigation_menus
+      - default_content
+      - sitewide_components
+_enabled_editors:
+  - visual
+  - content
+  - data
+_inputs:
+  build:
+    label: Build Options
+    context:
+      content: Set whether a page for this item should be built.
+  detail_sidebar_blocks:
+    type: array
+    options:
+      structures: _structures.detail_sidebar_blocks
+    cascade: true
+  draft:
+    type: checkbox
+  excerpt:
+    type: textarea
+    cascade: true
+  exclude_from_search_engines:
+    context:
+      content: Check this if you don’t want this page to come up when users perform a Google search.
+  expiryDate:
+    type: datetime
+    options:
+      timezone: America/New_York
+  horizontal_subnav:
+    type: select
+    options:
+      values: data.menus[?(@._schema == "horizontal_subnav")]
+      value_key: uuid
+      preview:
+        text:
+          - key: subnav_title
+    context:
+      content: This will appear just below the main nav on this page. Note, it will not show in the Live Editor until the next time your page builds.
+  include_in_search_results:
+    context:
+      content: Leave checked if you want this page to show up when using a search component.
+  label_c:
+    type: select
+    options:
+      allow_empty: true
+      values: _select_data.brand_colors_site
+      value_key: class
+    label: Label Color
+    cascade: true
+  meta_description:
+    context:
+      content: Used for SEO.
+  metadata:
+    type: auto
+    hidden: true
+    cascade: true
+  nav_links:
+    type: array
+    options:
+      structures: _structures.nav_item
+    cascade: true
+  publishDate:
+    type: datetime
+    options:
+      timezone: America/New_York
+    instance_value: NOW
+    cascade: true
+  properties:
+    options:
+      preview:
+        text: Page Properties
+        icon: settings
+  recirculate:
+    hidden: true
+  render:
+    type: checkbox
+  social_image:
+    context:
+      content: An image that will be used when this page is shared on social media.
+  sub_nav_links:
+    type: array
+    options:
+      structures: _structures.sub_nav_item
+    cascade: true
+  title:
+    type: text
+    options:
+      required: true
+  topper:
+    type: object
+    options:
+      values: _structures.topper
+      required: true
+    cascade: true
+  type:
+    type: auto
+    hidden: true
+    cascade: true
+  uuid:
+    type: auto
+    instance_value: UUID
+    hidden: true
+    cascade: true
+  vertical_subnav:
+    type: select
+    options:
+      values: data.menus[?(@._schema == "vertical_subnav")]
+      value_key: uuid
+      preview:
+        text:
+          - key: subnav_title
+    context:
+      content: This will appear in the left sidebar of the page. Note, it will not show in the Live Editor until the next time your page builds.
+  weight:
+    type: number
+  ###### Inputs that can vary ######
+  tags:
+    type: multiselect
+    options:
+      allow_create: true
+      allow_empty: true
+      values:
+        - featured
+    cascade: true
+_select_data:
+  brand_colors_site:
+    - name: WVU Gold
+      background_classes: bg-wvu-gold text-dark
+      class: wvu-gold
+      rgba: 234,170,0
+    - name: WVU Blue
+      background_classes: bg-wvu-blue text-white
+      class: wvu-blue
+      rgba: 0, 40, 85
+    - name: Safety Blue
+      background_classes: bg-wvu-safety-blue text-white
+      class: wvu-safety-blue
+      rgba: 0, 98, 163
+    - name: Coal
+      background_classes: bg-wvu-coal text-white
+      class: wvu-coal
+      rgba: 28, 43, 57
+    - name: Star City Blue
+      background_classes: bg-wvu-star-city-blue text-dark
+      class: wvu-star-city-blue
+      rgba: 157, 218, 230
+    - name: Canary
+      background_classes: bg-wvu-canary text-dark
+      class: wvu-canary
+      rgba: 255, 229, 57
+    - name: Old Gold
+      background_classes: bg-wvu-old-gold text-white
+      class: wvu-old-gold
+      rgba: 127, 99, 16
+    - name: Sunset
+      background_classes: bg-wvu-sunset text-dark
+      class: wvu-sunset
+      rgba: 245, 134, 114
+    - name: Not Quite White
+      background_classes: bg-wvu-not-quite-white text-dark
+      class: wvu-not-quite-white
+      rgba: 247, 247, 247
+    - name: Cooper's Gray
+      background_classes: bg-wvu-coopers-gray text-dark
+      class: wvu-coopers-gray
+      rgba: 190,183,179
+    - name: Seneca Gray
+      background_classes: bg-wvu-seneca-gray text-dark
+      class: wvu-seneca-gray
+      rgba: 152, 142, 139
+    - name: Rattler Gray
+      background_classes: bg-wvu-rattler-gray text-white
+      class: wvu-rattler-gray
+      rgba: 85, 71, 65
+    - name: Wild Flour
+      background_classes: bg-wvu-wild-flour text-dark
+      class: wvu-wild-flour
+      rgba: 242, 230, 194
+    - name: Buckskin
+      background_classes: bg-wvu-buckskin text-dark
+      class: wvu-buckskin
+      rgba: 179, 161, 105
+    - name: Transparent (Dark Text)
+      background_classes: bg-transparent text-dark
+      class: transparent
+      rgba:
+    - name: Transparent (Light Text)
+      background_classes: bg-transparent text-white
+      class: transparent
+      rgba:
+    - name: Dark
+      background_classes: bg-dark text-white
+      class: dark
+      rgba: 42, 42, 41
+_structures:
+  contact:
+    style: select
+    values:
+      - value:
+          contact:
+  content_blocks:
+    style: modal
+  default_content_blocks:
+    style: modal
+  detail_blocks:
+    style: modal
+  nav_item:
+    style: select
+    values:
+      - label: Link
+        value:
+          text:
+          link:
+          sub_nav_links:
+  sub_nav_item:
+    style: select
+    values:
+      - label: Link
+        value:
+          text:
+          link:
+_editables:
+  content:
+    allow_custom_markup: true
+    remove_custom_markup: false
+    bold: true
+    bulletedlist: true
+    code: true
+    copyformatting: true
+    embed: true
+    format: p h2 h3 h4 h5 h6
+    horizontalrule: true
+    image: false
+    image_size_attributes: false
+    indent: true
+    italic: true
+    link: true
+    numberedlist: true
+    outdent: true
+    redo: true
+    removeformat: true
+    resize_style:
+    snippet: true
+    strike: true
+    styles: /assets/scss/custom/_content.scss
+    subscript: true
+    superscript: true
+    table: true
+    underline: true
+    undo: true
+_snippets_imports:
+  hugo: false
+data_config: true
+timezone: US/Eastern

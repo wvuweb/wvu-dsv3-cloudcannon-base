@@ -1,0 +1,61 @@
+baseURL: '/'
+languageCode: 'en-us'
+title: 'Design System 3'
+timeZone: America/New_York
+staticDir: assets
+
+enableRobotsTXT: true
+
+disableKinds:
+  - taxonomy
+  - term
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+module:
+  hugoVersion:
+    extended: true
+    min: 0.125
+  imports:
+    - path: github.com/wvuweb/wvu-ds-v3-hugo
+    - path: components.local
+    - path: github.com/cloudcannon/bookshop/hugo/v3
+    - path: github.com/wvuweb/wvu-ds-v3-bookshop-components
+      mounts:
+      - source: component-library
+        target: layouts/partials/bookshop/
+      - source: component-library
+        target: assets/bookshop/
+  replacements:
+    - components.local -> ../component-library
+
+caches:
+  images:
+    dir: :resourceDir/_gen
+    maxAge: -1
+
+# taxonomies:
+#   category: categories
+#   tag: tags
+
+# related:
+#   includeNewer: true
+#   indices:
+#     - applyFilter: false
+#       cardinalityThreshold: 0
+#       name: tags
+#       pattern: ""
+#       toLower: false
+#       type: basic
+#       weight: 80
+#   threshold: 80
+#   toLower: true
+
+params:
+  audience: general
+  emergency_alert_disabled: false
+  emergency_alert_json_url: https://emergency.wvu.edu/emergency.json
+  enableRelatedPages: true
