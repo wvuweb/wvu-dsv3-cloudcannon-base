@@ -455,6 +455,10 @@ collections_config:
     disable_add_folder: true
     disable_file_actions: true
     _inputs:
+      address_lines:
+        type: array
+      address_lines[*]:
+        type: text
       alert_banner:
         options:
           preview:
@@ -577,6 +581,13 @@ collections_config:
         - name: Warning
           type: warning
     _structures:
+      contact_info_blocks:
+        values:
+          - value:
+              address_heading:
+              address_lines:
+              phone:
+              email:
       d_ctas:
         values:
           - value:
