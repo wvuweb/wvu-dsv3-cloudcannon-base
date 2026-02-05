@@ -55,6 +55,7 @@ caches:
 #   toLower: true
 
 params:
+  pagefind_enabled: false
   audience: general
   emergency_alert_disabled: false
   emergency_alert_json_url: https://emergency.wvu.edu/emergency.json
